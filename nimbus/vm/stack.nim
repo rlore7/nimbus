@@ -7,7 +7,8 @@
 
 import
   strformat, strutils, sequtils, macros, rlp, eth_common, nimcrypto,
-  ../errors, ../validation, ./utils/utils_numeric, ../constants, stint, ../logging, .. / utils / bytes
+  ../errors, ../validation, ../constants, stint, ../logging, ../utils/bytes,
+  ./interpreter/utils/utils_numeric
 
 type
   Stack* = ref object of RootObj

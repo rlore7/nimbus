@@ -7,7 +7,7 @@
 
 import
   stint, math, eth_common, # GasInt
-  ../utils/[macros_gen_opcodes, utils_numeric],
+  ./utils/[macros_gen_opcodes, utils_numeric],
   ./opcode_values
 
 # Gas Fee Schedule
