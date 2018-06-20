@@ -38,6 +38,7 @@ proc newMemory*(size: Natural): Memory =
   result.extend(0, size)
 
 proc read*(memory: var Memory, startPosition: Natural, size: Natural): seq[byte] =
+  # TODO: use an openarray[byte]
   result = memory.bytes[startPosition ..< (startPosition + size)]
 
 proc write*(memory: var Memory, startPosition: Natural, value: openarray[byte]) =

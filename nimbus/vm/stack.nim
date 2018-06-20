@@ -25,7 +25,7 @@ proc len*(stack: Stack): int {.inline.} =
   len(stack.values)
 
 proc toStackElement(v: UInt256, elem: var StackElement) {.inline.} = elem = v
-proc toStackElement(v: uint | int, elem: var StackElement) {.inline.} = elem = v.u256
+proc toStackElement(v: uint | int | GasInt, elem: var StackElement) {.inline.} = elem = v.u256
 proc toStackElement(v: EthAddress, elem: var StackElement) {.inline.} = elem = bigEndianToInt(v)
 proc toStackElement(v: MDigest, elem: var StackElement) {.inline.} = elem = readUintBE[256](v.data)
 
@@ -33,7 +33,7 @@ proc fromStackElement(elem: StackElement, v: var UInt256) {.inline.} = v = elem
 proc fromStackElement(elem: StackElement, v: var EthAddress) {.inline.} = v[0 .. ^1] = elem.toByteArrayBE().toOpenArray(0, 19)
 proc fromStackElement(elem: StackElement, v: var Hash256) {.inline.} = v.data = elem.toByteArrayBE()
 
-proc toStackElement(v: seq[byte], elem: var StackElement) {.inline.} =
+proc toStackElement(v: openarray[byte], elem: var StackElement) {.inline.} =
   # TODO: This needs to go
   validateStackItem(v)
   elem = bigEndianToInt(v)
@@ -43,10 +43,10 @@ proc pushAux[T](stack: var Stack, value: T) =
   stack.values.setLen(stack.values.len + 1)
   toStackElement(value, stack.values[^1])
 
-proc push*(stack: var Stack, value: uint | UInt256 | EthAddress | Hash256) {.inline.} =
+proc push*(stack: var Stack, value: uint | int | GasInt | UInt256 | EthAddress | Hash256) {.inline.} =
   pushAux(stack, value)
 
-proc push*(stack: var Stack, value: seq[byte]) {.inline.} =
+proc push*(stack: var Stack, value: openarray[byte]) {.inline.} =
   # TODO: This needs to go...
   pushAux(stack, value)
 
