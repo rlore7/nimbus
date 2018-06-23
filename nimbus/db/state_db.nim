@@ -104,10 +104,12 @@ proc setNonce*(db: var AccountStateDB, address: EthAddress, nonce: UInt256) =
   db.setAccount(address, account)
 
 proc getNonce*(db: AccountStateDB, address: EthAddress): UInt256 =
+  # TODO it is very strange that we require a var param here
+
   validateCanonicalAddress(address, title="Storage Address")
 
   let account = db.getAccount(address)
-  return account.nonce
+  account.nonce
 
 proc setCode*(db: var AccountStateDB, address: EthAddress, code: string) =
   validateCanonicalAddress(address, title="Storage Address")

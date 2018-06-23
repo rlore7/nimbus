@@ -75,6 +75,11 @@ method getAncestorHash*(vmState: BaseVMState, blockNumber: BlockNumber): Hash256
   result = header.hash
 
 macro db*(vmState: untyped, readOnly: untyped, handler: untyped): untyped =
+  # TODO: this db macro forces strange usage patterns. Example:
+  #  computation.vmState.db(readOnly=true):
+  #  let creationNonce = db.getNonce(computation.msg.storageAddress)
+  # It also prevent the use of "return" keyword in AccountDB proc
+
   # vm.state.db:
   #   setupStateDB(fixture{"pre"}, stateDb)
   #   code = db.getCode(fixture{"exec"}{"address"}.getStr)

@@ -5,9 +5,9 @@ import
 proc default(t: typedesc): t = discard
 
 # constants
-let # TODO - replace by const - https://github.com/status-im/nim-stint/issues/52
+const
   UINT_256_MAX*: UInt256 =        high(UInt256)
-  INT_256_MAX_AS_UINT256* =       cast[Uint256](high(Int256))
+  INT_256_MAX_AS_UINT256* =       high(Uint256) shr 1
   NULLBYTE* =                     "\x00"
   EMPTYWORD* =                    repeat(NULLBYTE, 32)
   UINT160CEILING*: UInt256 =      2.u256.pow(160)
@@ -47,10 +47,10 @@ let # TODO - replace by const - https://github.com/status-im/nim-stint/issues/52
   GENESIS_EXTRA_DATA* =           ""
   GAS_LIMIT_MINIMUM* =            5000
 
-  EMPTYSHA3 =                     "\xc5\xd2F\x01\x86\xf7#<\x92~}\xb2\xdc\xc7\x03\xc0\xe5\x00\xb6S\xca\x82';{\xfa\xd8\x04]\x85\xa4p"
+  EMPTY_SHA3* =                   "\xc5\xd2F\x01\x86\xf7#<\x92~}\xb2\xdc\xc7\x03\xc0\xe5\x00\xb6S\xca\x82';{\xfa\xd8\x04]\x85\xa4p"
   BLANK_ROOT_HASH* =              "56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421".toDigest()
 
   GAS_MOD_EXP_QUADRATIC_DENOMINATOR* = 20.u256
 
-  MAX_PREV_HEADER_DEPTH* = 256.u256
-
+  MAX_PREV_HEADER_DEPTH* =         256.u256
+  MaxCallDepth* =                   1024
